@@ -5,29 +5,33 @@ import { calculateExercises} from './exerciseCalculator.ts';
 import type { Request, Response } from 'express';
 
 
+interface MyRequestBody {
+    daily_exercises: number[];
+    target: number;
+}
+
 const app = express();
 app.use(express.json()); 
 app.get('/hello', (_req,res)=>{
     res.send('Hello Full Stack!');
 });
 
-app.post('/exercises', (req: Request,res: Response)=> {
+app.post('/exercises', (req: Request<void,void,MyRequestBody>,res: Response)=> {
     const {daily_exercises,  target} = req.body;
-    if(!daily_exercises || !target){
-
+    if(!daily_exercises || !target) {
         res.status(400).json({
             error: "parameters missing"
         });
-        return
+        return;
     }
     if(!Array.isArray(daily_exercises) || isNaN(+target) || !daily_exercises.every(item => typeof item == 'number')){
         res.status(400).json({
             error: "malformatted parameters"
         });
-        return
+        return;
     }
     const result = calculateExercises(daily_exercises,target);
-    console.log(result)
+    console.log(result);
     res.status(200).json(result);
 
 
@@ -42,7 +46,7 @@ app.get('/bmi', (req,res) => {
             res.status(400).json({
                 error: "malformatted parameters"
             });
-            return
+            return;
     }
     const bmi = calculateBmi(height,weight);
     res.status(200).json({
