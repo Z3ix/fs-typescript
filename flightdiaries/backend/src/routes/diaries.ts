@@ -5,12 +5,12 @@ import { newDiaryParser, errorMiddleware } from '../middleware.ts';
 
 const router = express.Router();
 
-router.get('/', (_req, res: Response<NonSensitiveDiaryEntry[]>) => {
+router.get('/', (_req: Request, res: Response<NonSensitiveDiaryEntry[]>) => {
   const data = diaryService.getNonSensitiveEntries();
   res.send(data);
 });
 
-router.get('/:id', (req, res) => {
+router.get('/:id', (req: Request, res: Response) => {
   const diary = diaryService.findById(Number(req.params.id));
 
   if (diary) {
