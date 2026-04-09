@@ -42,14 +42,14 @@ export type HealthCheckRating = typeof HealthCheckRating[keyof typeof HealthChec
 export const SickLeaveSchema = z.object({
     startDate: z.iso.date(),
     endDate: z.iso.date()
-})
+});
 
 export type SickLeave = z.infer<typeof SickLeaveSchema>;
 
 export const DischargeSchema = z.object({
     date: z.iso.date(),
     criteria: z.string()
-})
+});
 
 export type Discharge = z.infer<typeof DischargeSchema>
 

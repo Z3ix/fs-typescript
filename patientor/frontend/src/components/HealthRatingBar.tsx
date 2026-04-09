@@ -17,7 +17,7 @@ const StyledRating = styled(Rating)({
   }
 });
 
-export const HEALTHBAR_TEXTS = [
+const HEALTHBAR_TEXTS = [
   "The patient is in great shape",
   "The patient has a low risk of getting sick",
   "The patient has a high risk of getting sick",

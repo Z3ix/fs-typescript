@@ -7,7 +7,7 @@ import { apiBaseUrl } from "./constants";
 import { Diagnosis, Patient } from "./types";
 
 import patientService from "./services/patients";
-import diagnoseService from "./services/diagnoses"
+import diagnoseService from "./services/diagnoses";
 import PatientListPage from "./components/PatientListPage";
 import { PatientInfo } from "./components/PatientInfo";
 
@@ -24,7 +24,7 @@ const App = () => {
     };
     void fetchPatientList();
 
-    diagnoseService.getAll().then(res => setDiagnoses(res))
+    diagnoseService.getAll().then(res => setDiagnoses(res));
 
   }, []);
   

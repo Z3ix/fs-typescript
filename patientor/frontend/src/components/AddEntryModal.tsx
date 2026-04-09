@@ -1,7 +1,7 @@
-import { Alert, InputLabel, Button, Dialog, DialogContent, DialogTitle, Divider, Grid, MenuItem, Select, SelectChangeEvent, TextField, Box, Chip } from "@mui/material"
+import { Alert, InputLabel, Button, Dialog, DialogContent, DialogTitle, Divider, Grid, MenuItem, Select, SelectChangeEvent, TextField, Box, Chip } from "@mui/material";
 
-import { Diagnosis, Discharge, type Entry , EntryWithoutId, HealthCheckRating, SickLeave} from "../types"
-import React, { useState } from "react"
+import { Diagnosis, Discharge, type Entry , EntryWithoutId, HealthCheckRating, SickLeave} from "../types";
+import React, { useState } from "react";
 import { assertNever } from "../utils/helper";
 
 interface Props {
@@ -27,54 +27,54 @@ const typeList : typeEntry[] = [{
 {
     value: "HealthCheck",
     name: "Health Check"
-}]
+}];
 
 
 export const AddEntryModal = ({modalVisible, setModalVisible,addEntry, error, diagnoses}: Props) => {
-    const [type, setType] = useState<Entry['type']>(typeList[0].value)
-    const [description, setDescription] = useState<string>('')
-    const [date,setDate ] =useState<string>(new Date().toISOString().split('T')[0])
-    const [specialist, setSpecialist] =useState<string>('')
-    const [diagnosisCodes, setDiagnosisCodes] =useState<Array<Diagnosis['code']> >([])
-    const [healthCheckRating, setHealthCheckRating] = useState<HealthCheckRating >(0)
-    const [discharge,setDischarge] = useState<Discharge>({date:new Date().toISOString().split('T')[0], criteria:''})
-    const [employerName, setEmployerName] = useState<string>('')
+    const [type, setType] = useState<Entry['type']>(typeList[0].value);
+    const [description, setDescription] = useState<string>('');
+    const [date,setDate ] =useState<string>(new Date().toISOString().split('T')[0]);
+    const [specialist, setSpecialist] =useState<string>('');
+    const [diagnosisCodes, setDiagnosisCodes] =useState<Array<Diagnosis['code']> >([]);
+    const [healthCheckRating, setHealthCheckRating] = useState<HealthCheckRating >(0);
+    const [discharge,setDischarge] = useState<Discharge>({date:new Date().toISOString().split('T')[0], criteria:''});
+    const [employerName, setEmployerName] = useState<string>('');
     const [sickLeave, setSickLeave] =useState<SickLeave>({
         startDate: new Date().toISOString().split('T')[0],
         endDate: new Date().toISOString().split('T')[0]
-    })
+    });
 
     const addEntryHandler = (e:React.SyntheticEvent) =>{
-        e.preventDefault()
-        const base ={description, date,specialist,diagnosisCodes}
+        e.preventDefault();
+        const base ={description, date,specialist,diagnosisCodes};
         const newEntry :EntryWithoutId = (()=>{
             switch(type){
                 case "HealthCheck":{
-                    return {...base, type:"HealthCheck", healthCheckRating: healthCheckRating}
+                    return {...base, type:"HealthCheck", healthCheckRating: healthCheckRating};
  
                 }
                 case "Hospital":{
-                    return {...base, type: "Hospital", discharge}
+                    return {...base, type: "Hospital", discharge};
                 }
                 case "OccupationalHealthcare":{
-                    return {...base, type:"OccupationalHealthcare",employerName, sickLeave}
+                    return {...base, type:"OccupationalHealthcare",employerName, sickLeave};
                 }
                 default :{
-                    return assertNever(type)
+                    return assertNever(type);
                 }
             }
-        })()
+        })();
 
-        addEntry(newEntry)
+        addEntry(newEntry);
 
-    }
+    };
 
     const diagnosisCodesChange = (e: SelectChangeEvent<Array<Diagnosis['code']>>) => {
-        const value = e.target.value
+        const value = e.target.value;
         setDiagnosisCodes(
             typeof value === "string"?value.split(','):value
-        )
-    }
+        );
+    };
     return (
     <Dialog fullWidth={true} open={modalVisible} onClose={() => setModalVisible(false)}>
         <DialogTitle>Add a new patient</DialogTitle>
@@ -89,7 +89,7 @@ export const AddEntryModal = ({modalVisible, setModalVisible,addEntry, error, di
                             value={type}
                             onChange={(e:SelectChangeEvent<Entry['type']>)=>{
                                 console.log('type changed ',e.target.value);
-                                setType(e.target.value)}
+                                setType(e.target.value);}
                             }
                             style={{marginBottom:"3px"}}
                         >
@@ -156,7 +156,7 @@ export const AddEntryModal = ({modalVisible, setModalVisible,addEntry, error, di
                             fullWidth
                             value={healthCheckRating}
                             onChange={(e:SelectChangeEvent<HealthCheckRating>)=>{
-                                setHealthCheckRating(e.target.value)}
+                                setHealthCheckRating(e.target.value);}
                             }
                             style={{marginBottom:"3px"}}
                         >
@@ -242,5 +242,5 @@ export const AddEntryModal = ({modalVisible, setModalVisible,addEntry, error, di
                     </div>
         </DialogContent>
     </Dialog>
-    )
-}
+    );
+};

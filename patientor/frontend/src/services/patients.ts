@@ -14,9 +14,9 @@ const getAll = async () => {
 const getById = async (id:string) => {
   const res = await axios.get<Patient>(
     `${apiBaseUrl}/patients/${id}`
-  )
-  return res.data
-}
+  );
+  return res.data;
+};
 
 
 
@@ -30,10 +30,10 @@ const create = async (object: PatientFormValues) => {
 };
 
 const addEntry = async(id: string, entry: EntryWithoutId) =>{
-  const result = await axios.post<Entry>(`${apiBaseUrl}/patients/${id}/entries`,entry)
-  return result.data
+  const result = await axios.post<Entry>(`${apiBaseUrl}/patients/${id}/entries`,entry);
+  return result.data;
 
-}
+};
 
 export default {
   getAll, create, getById,addEntry

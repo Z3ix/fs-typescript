@@ -11,13 +11,13 @@ router.get('/', (req,res) =>{
 });
 
 router.get('/:id',(req,res) =>{
-    const id = req.params.id
-    const patient = getById(id)
+    const id = req.params.id;
+    const patient = getById(id);
     if (!patient?.entries){
-        patient.entries = []
+        patient.entries = [];
     }
-    return res.json(patient)
-})
+    return res.json(patient);
+});
 
 const errorHandler = (error: unknown,req: Request, res: Response, next: NextFunction) => {
     if (error instanceof z.ZodError) {
@@ -48,14 +48,14 @@ interface RequestParams{
 }
 router.post('/:id/entries', (req: Request<RequestParams,unknown, EntryWithoutId>,res)=> {
     try{
-        const result = addEntry(req.params.id, req.body)
-        res.status(200).json(result)
+        const result = addEntry(req.params.id, req.body);
+        res.status(200).json(result);
     } catch (e:unknown) {
         if (e instanceof Error){
-            console.log(e.message)
-            res.status(400).json(e)
+            console.log(e.message);
+            res.status(400).json(e);
         }
     }
-})
+});
 router.use(errorHandler);
 export default router;
